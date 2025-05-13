@@ -6,8 +6,8 @@ import machine
 from bme280 import BME280  # Importa la librería personalizada
 
 # Configuración WiFi y ThingSpeak
-WIFI_SSID = 'S4NP1'
-WIFI_PASSWORD = 'LAFAMILIAESPRIMERO'
+WIFI_SSID = 'PC Puma FESC C4:.'
+WIFI_PASSWORD = ''
 THINGSPEAK_MQTT_CLIENT_ID = b"KzoCETsWIBsyGjovIBQ1BBM"
 THINGSPEAK_MQTT_USERNAME = b"KzoCETsWIBsyGjovIBQ1BBM"
 THINGSPEAK_MQTT_PASSWORD = b"3eiqAGKY9zjSwp3GUnJBwuFm"
