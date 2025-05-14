@@ -6,7 +6,7 @@ import machine
 from bme280 import BME280  # Importa la librería personalizada
 
 # Configuración WiFi y ThingSpeak
-WIFI_SSID = 'PC Puma FESC C4:.'
+WIFI_SSID = '.:PC Puma FESC C4:.'
 WIFI_PASSWORD = ''
 THINGSPEAK_MQTT_CLIENT_ID = b"KzoCETsWIBsyGjovIBQ1BBM"
 THINGSPEAK_MQTT_USERNAME = b"KzoCETsWIBsyGjovIBQ1BBM"
@@ -16,6 +16,11 @@ THINGSPEAK_CHANNEL_ID = b'2767059'
 # Configuración de pines I2C
 I2C_SCL = 5  # Cambia según tu conexión
 I2C_SDA = 4  # Cambia según tu conexión
+
+# Configuración del LED (GPIO15)
+LED_PIN = 15
+led = machine.Pin(LED_PIN, machine.Pin.OUT)
+led.off()  # Inicia apagado
 
 # Inicializa WiFi
 ap_if = network.WLAN(network.AP_IF)
@@ -61,6 +66,12 @@ while True:
         temperature = sensor.read_temperature() / 100.0  # Convertir a °C
         pressure = sensor.read_pressure() / 256.0 / 100.0  # Convertir a hPa
         humidity = sensor.read_humidity() / 1024.0  # Convertir a %
+
+         if temperature >= 30:
+            led.on()
+            print("¡ALERTA! Temperatura alta")
+        else:
+            led.off()
 
         # Construye el payload MQTT
         credentials = bytes(f"channels/{THINGSPEAK_CHANNEL_ID.decode('utf-8')}/publish", 'utf-8')
